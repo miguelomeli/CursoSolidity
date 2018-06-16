@@ -3,7 +3,9 @@
 Mis datos de contacto son : 
 
 E-mail : miguel@lomeli.io
+
 FB : miguel.lomeli.mx
+
 Whatsapp : 3314791340
 
 [![N|Solid](https://lomeli.io/images/logo-default-125x45.png)](https://lomeli.io)
