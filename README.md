@@ -18,7 +18,7 @@ Whatsapp : 3314791340
   - 2.- Introduccion Basica a Solidity
   - 3.- Que son los Smart Contracts
   - 4.- Creacion de Tokens
-  - 5.- Creacion de Dapsp
+  - 5.- Creacion de Daps
   - 6.- Polleo (es un nombre raro que le puse a una acción la cual es similar a walletnotify de bitcoin)
  
 
@@ -567,7 +567,7 @@ contract LomeliMultilpleTokens {
 }
 
 ```
-# 5.- Creacion de Dapsp
+# 5.- Creacion de Daps
 Una ÐApp (se escribe con esta Ð extraña y pronunciado como [Di-app], similar a como decimos “e-mail” [i-meil]) es una aplicación descentralizada, es decir, una app que no depende de un sistema central, sino que depende de la comunidad de usuarios que la utilizan.
 
 La aplicación descentralizada puede ser una app móvil o una aplicación web que interactúa con un contrato inteligente para llevar a cabo su función.
