@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+	<script type="text/javascript">
+	    var contractAddress = "0x000000000000000000000000";
+	    var ABI = '';
+	    var url = '//ropsten.etherscan.io/api?module=contract&action=getabi&address=' + contractAddress;
+	    var myContract;
+		var myContractInstance;
+
+		var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io'));
+		var web3Read = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io'));
+
+
+	    $.getJSON(url, function (data) {
+	        if (data.status == '0') {
+	            console.log(data);
+	        } else {
+	            ABI = JSON.parse(data.result);
+	        }
+	    });
+
+
+		
+		function crearNota(_titulo , _description){
+		    web3.eth.getAccounts(function (err, accounts) {
+		        if(accounts.length > 0){
+		            var address = accounts[0];
+		            var isAddress = web3.isAddress(address);
+		            if(isAddress){
+		                myContract = web3.eth.contract(ABI);
+		                myContractInstance = myContract.at(contractAddress);
+		                var functiontoCall = 'myContractInstance.createNota';
+		                var params = "'"+_titulo+"' , '"+_description+"'";
+		                new Function(functiontoCall + "(" + params + ", function(err, res){ console.log(res); });")();
+		            }
+		        }
+		    });
+		}
+
+
+		function updateNota(_id , _titulo , _description){
+		    web3.eth.getAccounts(function (err, accounts) {
+		        if(accounts.length > 0){
+		            var address = accounts[0];
+		            var isAddress = web3.isAddress(address);
+		            if(isAddress){
+		                myContract = web3.eth.contract(ABI);
+		                myContractInstance = myContract.at(contractAddress);
+		                var functiontoCall = 'myContractInstance.updateNota';
+		                var params = "'"+_id+"' , '"+_titulo+"' , '"+_description+"'";
+		                new Function(functiontoCall + "(" + params + ", function(err, res){ console.log(res); });")();
+		            }
+		        }
+		    });
+		}
+
+
+		function deleteNota(_id){
+		    web3.eth.getAccounts(function (err, accounts) {
+		        if(accounts.length > 0){
+		            var address = accounts[0];
+		            var isAddress = web3.isAddress(address);
+		            if(isAddress){
+		                myContract = web3.eth.contract(ABI);
+		                myContractInstance = myContract.at(contractAddress);
+		                var functiontoCall = 'myContractInstance.deleteNota';
+		                var params = "'"+_id+"'";
+		                new Function(functiontoCall + "(" + params + ", function(err, res){ console.log(res); });")();
+		            }
+		        }
+		    });
+		}
+
+
+		function getNota(_id){
+		    var MyContract = web3Read.eth.contract(ABI);
+		    var myContractInstance = MyContract.at(contractAddress);
+		    var functionNametoCall = "myContractInstance.getNota";
+		    var params = "'"+_id+"'";
+		    var result = eval(functionNametoCall  + "(" + params + ");");
+		    console.log(result);
+		}
+
+	</script>
+</head>
+<body>
+	
+crearNota("Hola" , "Quiero poner una nota aqui");
+<br /><br />
+updateNota(1 , "Hola" , "Quiero poner una nota aqui");
+<br /><br />
+deleteNota(1);
+<br /><br />
+getNota(1);
+<br /><br />
+
+
+</body>
+</html>
