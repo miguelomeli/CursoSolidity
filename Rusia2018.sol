@@ -42,6 +42,8 @@ contract Rusia2018 {
     mapping (uint256 => Team) public Teams;
     uint256[] public teams;
     address[] public competitors;
+    address[] public ganadores;
+
 
 
 
@@ -94,6 +96,77 @@ contract Rusia2018 {
         API = _API;
         return true;
     }
+
+
+
+
+    function setGoalsPlayed(uint256 _slug , uint256 _goals , uint256 _played , bool _status) onlyOwner isRunning public returns (bool success){
+        Teams[_slug].goals = _goals;
+        Teams[_slug].played = _played;
+        Teams[_slug].status = _status;
+        return true;
+    }
+
+
+
+
+    function setRetiro(address envio) onlyOwner isRunning public returns (bool success){
+        envio.transfer(this.balance);
+        return true;
+    }
+
+
+
+    function Finished(uint256 _slug) onlyOwner isRunning public returns (bool success){
+
+
+
+        for(uint256 i=0; i<competitors.length; i++){
+            if( Competitors[competitors[i]].team == _slug ){
+
+
+
+                ganadores.push(competitors[i]);
+
+
+            }
+        }
+
+        
+        
+        uint256 saldoContrato = this.balance;
+
+        uint256 saldoGanadores = ganadores.length;
+
+        uint256 saldoEntregar = saldoContrato - (saldoGanadores*EntryPrice);
+
+        uint256 porcentajeParaMi = 10;
+
+        uint256 saldoParaMi = (saldoEntregar * porcentajeParaMi)/100;
+
+        saldoEntregar -= saldoParaMi;
+
+        uint256 saldoApagar = saldoEntregar / saldoGanadores;
+
+
+        owner.transfer(saldoParaMi);
+
+
+        for(uint x=0; x<ganadores.length; x++){
+
+            ganadores[x].transfer(saldoApagar);
+
+        }
+
+
+
+
+
+
+        return true;
+    }
+
+
 
 
 
@@ -167,9 +240,16 @@ contract Rusia2018 {
 
 
 
+
     function getBalance() view public returns (uint256 balance){
         return address(0x0).balance;
     }
+
+    function getBalance2() view public returns (uint256 balance){
+        return this.balance;
+    }
+
+
 
     function listCompetitors() external view returns(address[]){
         return competitors;
@@ -182,8 +262,8 @@ contract Rusia2018 {
 
 
 
-    event TeamEvent(uint256 _slug, string _name, uint256 _date);
-    event CompetitorEvent(address _user, uint256 _value, uint256 _date);
-    event CompetitorTeamEvent(address _user, uint256 _team, uint256 _date);
+    event TeamEvent(uint256 indexed _slug, string indexed _name, uint256 indexed _date);
+    event CompetitorEvent(address indexed _user, uint256 indexed _value, uint256 indexed _date);
+    event CompetitorTeamEvent(address indexed _user, uint256 indexed _team, uint256 indexed _date);
 
 }
