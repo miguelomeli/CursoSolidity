@@ -1,5 +1,4 @@
-pragma solidity ^0.4.24;
-
+pragma solidity ^0.4.25;
 contract BlogsLomeli {
 
     address public owner;
@@ -13,6 +12,8 @@ contract BlogsLomeli {
     }
     mapping (uint256 => Notas) public notas;
     
+    
+ 
 	modifier onlyOwner {
 		require(owner == msg.sender);
         _;
@@ -26,21 +27,21 @@ contract BlogsLomeli {
 		notas[contador].id = contador;
 		notas[contador].titulo = _titulo;
 		notas[contador].descripcion = _description;
-		notas[contador].date = block.timestamp;
-		logCreateNota(contador , block.timestamp , _titulo , _description);
+		notas[contador].date = now;
+		emit logCreateNota(contador , now , _titulo , _description);
 		contador++;
 	}
 
 	function updateNota(uint256 _code , string _titulo , string _description) onlyOwner public{
 		notas[_code].titulo = _titulo;
 		notas[_code].descripcion = _description;
-		notas[_code].date = block.timestamp;
-		logUpdateNota(_code , block.timestamp , _titulo , _description);
+		notas[_code].date = now;
+		emit logUpdateNota(_code , now , _titulo , _description);
 	}
 
 	function deleteNota(uint256 _code) onlyOwner public{
 		delete notas[_code];
-		logDeleteNota(_code , block.timestamp);
+		emit logDeleteNota(_code , now);
 	}
 
 	function getNota(uint256 _code) constant public returns(uint256 id , string titulo , string descripcion , uint256 date){
