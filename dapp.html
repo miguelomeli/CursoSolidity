@@ -13,7 +13,7 @@
 	    var myContract;
 		var myContractInstance;
 
-		var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io'));
+		var web3 = new Web3(web3.currentProvider);
 		var web3Read = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io'));
 
 
