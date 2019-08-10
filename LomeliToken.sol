@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.10;
 
 contract LomeliToken {
 
@@ -18,8 +18,8 @@ contract LomeliToken {
         uint256 tokens = totalSupply / 2;
         balanceOf[msg.sender] = tokens;
         balanceOf[piter] = tokens;
-        emit Transfer(0x0, owner, tokens);
-        emit Transfer(0x0, piter, tokens);
+        emit Transfer(address(0), owner, tokens);
+        emit Transfer(address(0), piter, tokens);
         
     }
 
@@ -58,8 +58,8 @@ contract LomeliToken {
     function burn(uint256 _value) public {
         require(balanceOf[msg.sender] >= _value);
         balanceOf[msg.sender] -= _value;
-        balanceOf[0x0] += _value;
-        emit Transfer(msg.sender, 0x0, _value);
+        balanceOf[address(0)] += _value;
+        emit Transfer(msg.sender, address(0), _value);
     }
     
     
