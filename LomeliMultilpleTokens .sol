@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.10;
 
 contract Token {
     bytes32 public standard;
@@ -9,10 +9,9 @@ contract Token {
     bool public allowTransactions;
     mapping (address => uint256) public balanceOf;
     mapping (address => mapping (address => uint256)) public allowance;
-    function transfer(address _to, uint256 _value) returns (bool success);
-    function approveAndCall(address _spender, uint256 _value, bytes _extraData) returns (bool success);
-    function approve(address _spender, uint256 _value) returns (bool success);
-    function transferFrom(address _from, address _to, uint256 _value) returns (bool success);
+    function transfer(address _to, uint256 _value) public returns (bool success);
+    function approve(address _spender, uint256 _value) public returns (bool success);
+    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success);
 }
 
 contract LomeliMultilpleTokens {
@@ -23,7 +22,7 @@ contract LomeliMultilpleTokens {
         _;
 	}
 
-    function LomeliMultilpleTokens() {
+    constructor() public{
         owner = msg.sender;
     }
 
